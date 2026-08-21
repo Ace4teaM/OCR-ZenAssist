@@ -7,7 +7,7 @@ from sklearn.metrics import (
     confusion_matrix
 )
 
-def calculate_metrics(results) -> dict:
+def calculate_metrics(name, method, results) -> dict:
     """
     Calcule les métriques de performance du modèle LLM.
 
@@ -24,6 +24,12 @@ def calculate_metrics(results) -> dict:
     y_pred = results["Réponse"]
 
     metrics = {
+        "Name": name,
+
+        "Method": method,
+
+        "Samples": len(results),
+
         "Accuracy": accuracy_score(y_true, y_pred),
 
         "Precision (macro)": precision_score(
@@ -81,6 +87,10 @@ def print_metrics(metrics):
     for name, value in metrics.items():
         if "Temps" in name:
             print(f"{name} : {value:.3f} s")
+        if "Samples" in name:
+            print(f"{name} : {value}")
+        elif isinstance(value, str):
+            print(f"{name} : {value}")
         else:
             print(f"{name} : {value:.2%}")
 
