@@ -87,7 +87,7 @@ def print_metrics(metrics):
     for name, value in metrics.items():
         if "Temps" in name:
             print(f"{name} : {value:.3f} s")
-        if "Samples" in name:
+        elif "Samples" in name:
             print(f"{name} : {value}")
         elif isinstance(value, str):
             print(f"{name} : {value}")
