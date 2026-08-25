@@ -5,10 +5,13 @@ from sentence_transformers import SentenceTransformer
 from functools import lru_cache
 import pickle
 import os
+from pathlib import Path
 
-index_filename = os.environ["FAISS_INDEX_FILENAME"]
-meta_filename = os.environ["FAISS_META_FILENAME"]
+index_filename = str(Path("database", os.environ["EMBEDDING_MODEL"], os.environ["FAISS_INDEX_FILENAME"]).resolve())
+meta_filename = str(Path("database", os.environ["EMBEDDING_MODEL"], os.environ["FAISS_META_FILENAME"]).resolve())
 
+print("index_filename", index_filename)
+print("meta_filename", meta_filename)
 #
 # vectorise les documents convertis (Sentence-BERT)
 #
@@ -17,7 +20,7 @@ meta_filename = os.environ["FAISS_META_FILENAME"]
 @lru_cache(maxsize=1)
 def get_model():
     print("Chargement du modèle...", flush=True)
-    return SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+    return SentenceTransformer(os.environ["EMBEDDING_MODEL"])
 
 
 def make_embeddings(text: str | list[str]) -> np.ndarray:
