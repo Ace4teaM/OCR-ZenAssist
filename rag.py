@@ -7,8 +7,11 @@ import pickle
 import os
 from pathlib import Path
 
-index_filename = str(Path("database", os.environ["EMBEDDING_MODEL"], os.environ["FAISS_INDEX_FILENAME"]).resolve())
-meta_filename = str(Path("database", os.environ["EMBEDDING_MODEL"], os.environ["FAISS_META_FILENAME"]).resolve())
+database_path = Path("database", os.environ["EMBEDDING_MODEL"])
+index_filename = str(Path(str(database_path), os.environ["FAISS_INDEX_FILENAME"]).resolve())
+meta_filename = str(Path(str(database_path), os.environ["FAISS_META_FILENAME"]).resolve())
+
+database_path.parent.mkdir(parents=True, exist_ok=True)
 
 print("index_filename", index_filename)
 print("meta_filename", meta_filename)

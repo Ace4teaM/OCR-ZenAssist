@@ -86,7 +86,7 @@ def calculate_metrics(name, method, results) -> dict:
 def print_metrics(metrics):
     for name, value in metrics.items():
         if "Temps" in name:
-            print(f"{name} : {value:.3f} s")
+            print(f"{name} : {value:.4f} s")
         elif "Samples" in name:
             print(f"{name} : {value}")
         elif isinstance(value, str):
