@@ -83,23 +83,28 @@ def calculate_metrics(name, method, results) -> dict:
 
     return metrics
 
-def print_metrics(metrics):
+def _metrics(metrics):
+    output = ""
     for name, value in metrics.items():
         if "Temps" in name:
-            print(f"{name} : {value:.4f} s")
+            output += (f"{name} : {value:.4f} s") + "\n"
         elif "Samples" in name:
-            print(f"{name} : {value}")
+            output += (f"{name} : {value}") + "\n"
         elif isinstance(value, str):
-            print(f"{name} : {value}")
+            output += (f"{name} : {value}") + "\n"
         else:
-            print(f"{name} : {value:.2%}")
+            output += (f"{name} : {value:.2%}") + "\n"
+    return output
 
-def report(results):
-    report = classification_report(
+def print_metrics(metrics):
+    print(_metrics(metrics))
+
+def _report(results):
+    return classification_report(
         results["Attendue"],
         results["Réponse"],
         zero_division=0
     )
 
-    print(report)
-
+def print_report(metrics):
+    print(_report(metrics))
